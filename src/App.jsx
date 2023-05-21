@@ -27,7 +27,7 @@ function App() {
       });
   }, []);
 
-  let finalFilter = apex;
+  let finalFilter;
 
   if (search) {
     const searchResult = apex.filter((e) => {
@@ -36,11 +36,14 @@ function App() {
     finalFilter = searchResult;
   } else if (homes === 1 || homes === 2 || homes === 3 || homes === 4) {
     finalFilter = apex.filter((element) => acc[element.home] === +homes);
-  } else if (homes !== "Home" && homes !== "All") {
+  } else if (homes !== "Home" && homes !== 0) {
     const filteredByCategory = apex.filter((element) => element.home === homes);
     finalFilter = filteredByCategory;
+  } else if (homes == "Home" || homes == 0) {
+    finalFilter = apex;
   }
 
+  console.log("homes", homes);
   console.log("apex", apex);
   console.log("finalFilter", finalFilter);
 
@@ -53,7 +56,7 @@ function App() {
   };
   const handleSelectChangeNum = (event) => {
     setHome(Number(event.target.value));
-    // setSearch(null);
+    setSearch(null);
   };
 
   return (
@@ -108,11 +111,11 @@ function App() {
               Category Number
               <div>
                 <select value={homes} onChange={handleSelectChangeNum} className="bg-gray-800">
-                  <option value="All">All</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
+                  <option value={0}>All</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
                 </select>
               </div>
             </th>
