@@ -5,49 +5,17 @@ import "./App.css";
 function App() {
   const [homes, setHome] = useState("Home");
   const [apex, setApex] = useState();
+
   const acc = {};
-  const [cru, setCru] = useState(true);
   for (let i = 0; i < apex?.length; i++) {
     const element = apex[i];
     const home = element.home;
     acc[home] = (acc[home] || 0) + 1;
   }
 
-  let elemenTampil = apex?.filter((element) => acc[element.home] === +homes);
-  let filtered = apex?.filter((e) => e.home == homes);
+  // let elemenTampil = apex?.filter((element) => acc[element.home] === +homes);
+
   const [search, setSearch] = useState();
-  let searchResult = apex?.filter((e) => {
-    return e.name.toLowerCase().includes(search?.toLowerCase());
-  });
-
-  let finalFilter;
-  if (homes === "All" || homes === "Home") {
-    finalFilter = apex;
-  } else if (cru) {
-    finalFilter = filtered;
-  } else if (search) {
-    finalFilter = searchResult;
-  } else if (search == []) {
-    finalFilter = apex;
-  } else {
-    finalFilter = elemenTampil;
-  }
-
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-    setCru(false);
-  };
-
-  console.log(finalFilter);
-  const handleSelectChange = (event) => {
-    setHome(event.target.value);
-    setCru(true);
-  };
-  const handleSelectChangeNum = (event) => {
-    setHome(event.target.value);
-    setCru(false);
-  };
-  // console.log(finalFilter);
   useEffect(() => {
     fetch("https://raddythebrand.github.io/apex-legends/data.json")
       .then((response) => response.json())
@@ -59,12 +27,41 @@ function App() {
       });
   }, []);
 
+  let finalFilter = apex;
+
+  if (search) {
+    const searchResult = apex.filter((e) => {
+      return e.name.toLowerCase().includes(search.toLowerCase());
+    });
+    finalFilter = searchResult;
+  } else if (homes === 1 || homes === 2 || homes === 3 || homes === 4) {
+    finalFilter = apex.filter((element) => acc[element.home] === +homes);
+  } else if (homes !== "Home" && homes !== "All") {
+    const filteredByCategory = apex.filter((element) => element.home === homes);
+    finalFilter = filteredByCategory;
+  }
+
+  console.log("apex", apex);
+  console.log("finalFilter", finalFilter);
+
+  const handleSelectChange = (event) => {
+    setHome(event.target.value);
+    setSearch(null);
+  };
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  const handleSelectChangeNum = (event) => {
+    setHome(Number(event.target.value));
+    // setSearch(null);
+  };
+
   return (
     <>
       <h6>{search}</h6>
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Search by name ..."
         value={search}
         onChange={handleSearch}
         className="w-[25%]  shadow-black shadow-2xl mt-10  border rounded text-black"
@@ -82,7 +79,6 @@ function App() {
               Home
               <div>
                 <select
-                  // onClick={setCru(false)}
                   value={homes}
                   onChange={handleSelectChange}
                   className="bg-gray-800 "
