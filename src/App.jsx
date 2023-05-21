@@ -15,15 +15,28 @@ function App() {
 
   let elemenTampil = apex?.filter((element) => acc[element.home] === +homes);
   let filtered = apex?.filter((e) => e.home == homes);
+  const [search, setSearch] = useState();
+  let searchResult = apex?.filter((e) => {
+    return e.name.toLowerCase().includes(search?.toLowerCase());
+  });
 
   let finalFilter;
   if (homes === "All" || homes === "Home") {
     finalFilter = apex;
   } else if (cru) {
     finalFilter = filtered;
+  } else if (search) {
+    finalFilter = searchResult;
+  } else if (search == []) {
+    finalFilter = apex;
   } else {
     finalFilter = elemenTampil;
   }
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    setCru(false);
+  };
 
   console.log(finalFilter);
   const handleSelectChange = (event) => {
@@ -34,6 +47,7 @@ function App() {
     setHome(event.target.value);
     setCru(false);
   };
+  // console.log(finalFilter);
   useEffect(() => {
     fetch("https://raddythebrand.github.io/apex-legends/data.json")
       .then((response) => response.json())
@@ -47,12 +61,12 @@ function App() {
 
   return (
     <>
-      {/* <h6>{homes}</h6> */}
+      <h6>{search}</h6>
       <input
         type="text"
         placeholder="Search..."
-        // value={searchTerm}
-        // onChange={(e) => setSearchTerm(e.target.value)}
+        value={search}
+        onChange={handleSearch}
         className="w-[25%]  shadow-black shadow-2xl mt-10  border rounded text-black"
       />
       <table className="border-collapse w-full my-5">
