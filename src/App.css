@@ -1,0 +1,12 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+td {
+  width: 50px;
+}
+th {
+  width: 50px;
+}
