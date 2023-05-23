@@ -58,7 +58,6 @@ function App() {
     setModal(!modal);
   };
 
-  console.log(finalFilter);
   const [filePath, setFilePath] = useState("");
 
   const handleFileChange = (event) => {
@@ -70,10 +69,10 @@ function App() {
     <>
       <input
         type="text"
-        placeholder="Search by name ..."
+        placeholder="Search by name ... "
         value={search}
         onChange={handleSearch}
-        className="w-[25%]  shadow-black shadow-2xl mt-10  border rounded text-black"
+        className="w-[25%] p-5 shadow-black shadow-2xl mt-10  border rounded text-black"
       />
       <table className="border-collapse w-full my-5">
         <thead className="">
