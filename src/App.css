@@ -10,3 +10,7 @@ td {
 th {
   width: 50px;
 }
+
+input {
+  background-color: aliceblue;
+}
