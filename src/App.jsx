@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-
+import { Modal, Button } from "flowbite-react";
 import "./App.css";
+// import { Modal } from "flowbite-react";
 
 function App() {
   const [homes, setHome] = useState("Home");
@@ -12,8 +13,6 @@ function App() {
     const home = element.home;
     acc[home] = (acc[home] || 0) + 1;
   }
-
-  // let elemenTampil = apex?.filter((element) => acc[element.home] === +homes);
 
   const [search, setSearch] = useState();
   useEffect(() => {
@@ -28,7 +27,6 @@ function App() {
   }, []);
 
   let finalFilter;
-
   if (search) {
     const searchResult = apex.filter((e) => {
       return e.name.toLowerCase().includes(search.toLowerCase());
@@ -43,10 +41,6 @@ function App() {
     finalFilter = apex;
   }
 
-  console.log("homes", homes);
-  console.log("apex", apex);
-  console.log("finalFilter", finalFilter);
-
   const handleSelectChange = (event) => {
     setHome(event.target.value);
     setSearch(null);
@@ -58,10 +52,27 @@ function App() {
     setHome(Number(event.target.value));
     setSearch(null);
   };
+  const [selectedName, setSelectedName] = useState(null);
+  const [modal, setModal] = useState(false);
 
+  const clickModal = (name) => {
+    setSelectedName(name);
+    setModal(!modal);
+  };
+
+  const handleInputChange = (e) => {
+    setEditedName(e.target.value);
+  };
+  console.log(selectedName);
+  const [filePath, setFilePath] = useState("");
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const path = URL.createObjectURL(file);
+    setFilePath(path);
+  };
   return (
     <>
-      <h6>{search}</h6>
       <input
         type="text"
         placeholder="Search by name ..."
@@ -119,6 +130,7 @@ function App() {
                 </select>
               </div>
             </th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -136,6 +148,104 @@ function App() {
                   <td className=" border">{e.type}</td>
                   <td className=" border">{e.home}</td>
                   <td className=" border">{acc[e.home]}</td>
+
+                  <td className=" border">
+                    <button onClick={() => clickModal(e)}>Edit</button>
+                    {modal && (
+                      <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-5">
+                        <div className="bg-[#98caaf] inline-block w-[35rem] rounded-lg ">
+                          <form className="my-10 space-y-10  w-full  inline-block" action="">
+                            <div className="">
+                              <div className="w-full flex justify-around">
+                                <div className="text-lg font-semibold py-2">
+                                  <label className="block text-left" htmlFor="name">
+                                    Name :
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                                    placeholder={selectedName.name}
+                                  />
+                                </div>
+                                <div className="text-lg font-semibold py-2">
+                                  <label className="block text-left" htmlFor="name">
+                                    Nick Name :
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                                    placeholder={selectedName.nickname}
+                                  />
+                                </div>
+                              </div>
+                              <div className="w-full  flex justify-around">
+                                <div className="text-lg font-semibold py-2">
+                                  <label className="block text-left" htmlFor="name">
+                                    Home :
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                                    placeholder={selectedName.home}
+                                  />
+                                </div>
+                                <div className="text-lg font-semibold py-2">
+                                  <label className="block text-left" htmlFor="name">
+                                    Type :
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                                    placeholder={selectedName.type}
+                                  />
+                                </div>
+                              </div>
+                              <div className="text-lg font-semibold py-2 mx-7 ">
+                                <label className="block text-left" htmlFor="name">
+                                  Quote :
+                                </label>
+                                <input
+                                  type="text"
+                                  className="placeholder:text-black w-full h-14  placeholder:text-lg rounded-lg border-gray-400"
+                                  placeholder={selectedName.quote}
+                                />
+                              </div>
+                            </div>
+                            <div className="bg-white p-2 mx-6 rounded-lg">
+                              <div className="bg-slate-500 h-40 p-3 flex justify-center rounded-lg mb-3">
+                                <img
+                                  className="w-[100px] "
+                                  src={filePath ? filePath : selectedName.thumbnail.small}
+                                  alt=""
+                                />
+                              </div>
+                              <input type="file" onChange={handleFileChange} />
+                            </div>
+                            <div className="flex text-white justify-between mx-7">
+                              <button
+                                onClick={() => {
+                                  setFilePath("");
+                                  clickModal();
+                                }}
+                                className="w-36 bg-red-600"
+                              >
+                                Close
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setFilePath("");
+                                  clickModal();
+                                }}
+                                className="w-36 bg-blue-700"
+                              >
+                                Save Changes
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    )}
+                  </td>
                 </tr>
               );
             })
