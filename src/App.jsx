@@ -202,16 +202,18 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
                   Name :
                 </label>
                 <input
+                  id="name"
                   type="text"
                   className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.name}
                 />
               </div>
               <div className="text-lg font-semibold py-2">
-                <label className="block text-left" htmlFor="name">
+                <label className="block text-left" htmlFor="nickname">
                   Nick Name :
                 </label>
                 <input
+                  id="nickname"
                   type="text"
                   className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.nickname}
@@ -220,20 +222,22 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
             </div>
             <div className="w-full  flex justify-around">
               <div className="text-lg font-semibold py-2">
-                <label className="block text-left" htmlFor="name">
+                <label className="block text-left" htmlFor="home">
                   Home :
                 </label>
                 <input
+                  id="home"
                   type="text"
                   className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.home}
                 />
               </div>
               <div className="text-lg font-semibold py-2">
-                <label className="block text-left" htmlFor="name">
+                <label className="block text-left" htmlFor="type">
                   Type :
                 </label>
                 <input
+                  id="type"
                   type="text"
                   className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.type}
@@ -241,25 +245,33 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
               </div>
             </div>
             <div className="text-lg font-semibold py-2 mx-7 ">
-              <label className="block text-left" htmlFor="name">
+              <label className="block text-left" htmlFor="quote">
                 Quote :
               </label>
               <input
+                id="quote"
                 type="text"
                 className="placeholder:text-black w-full h-14 pl-1 placeholder:text-lg rounded-lg "
                 placeholder={selectedName.quote}
               />
             </div>
           </div>
-          <div className="bg-white p-2 mx-6 rounded-lg">
-            <div className="bg-slate-500 h-40 p-3 flex justify-center rounded-lg mb-3">
-              <img
-                className="w-[100px] "
-                src={filePath ? filePath : selectedName.thumbnail.small}
-                alt=""
-              />
+          <div>
+            <div className="w-full flex justify-start text-lg font-semibold  mx-7 ">
+              <label htmlFor="img">Thumbnail</label>
             </div>
-            <input type="file" onChange={handleFileChange} />
+
+            <div className="bg-white p-2 mx-6 rounded-lg">
+              <div className="bg-slate-500 h-40 p-3 flex justify-center rounded-lg mb-3">
+                <img
+                  className="w-[100px] "
+                  src={filePath ? filePath : selectedName.thumbnail.small}
+                  alt=""
+                />
+              </div>
+
+              <input className="bg-white" id="img" type="file" onChange={handleFileChange} />
+            </div>
           </div>
           <div className="flex text-white justify-between mx-7">
             <button
