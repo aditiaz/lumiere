@@ -128,7 +128,7 @@ function App() {
                 </select>
               </div>
             </th>
-            <th>Action</th>
+            <th className="border">Action</th>
           </tr>
         </thead>
         {finalFilter?.length === 0 ? (
