@@ -141,7 +141,7 @@ function App() {
             {apex ? (
               finalFilter?.map((e, i) => {
                 return (
-                  <tr key={e.quote} className="bg-gray-100">
+                  <tr key={e.quote} className="text-black bg-gray-100">
                     <td className=" border">{i + 1}</td>
                     <td className=" border">{e.name}</td>
                     <td className=" border">{e.nickname}</td>
@@ -154,7 +154,9 @@ function App() {
                     <td className=" border">{acc[e.home]}</td>
 
                     <td className=" border">
-                      <button onClick={() => clickModal(e)}>Edit</button>
+                      <button className="bg-transparent" onClick={() => clickModal(e)}>
+                        Edit
+                      </button>
                       {modal && (
                         <Modal
                           selectedName={selectedName}
@@ -202,7 +204,7 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
                 </label>
                 <input
                   type="text"
-                  className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                  className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.name}
                 />
               </div>
@@ -212,7 +214,7 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
                 </label>
                 <input
                   type="text"
-                  className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                  className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.nickname}
                 />
               </div>
@@ -224,7 +226,7 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
                 </label>
                 <input
                   type="text"
-                  className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                  className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.home}
                 />
               </div>
@@ -234,7 +236,7 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
                 </label>
                 <input
                   type="text"
-                  className="placeholder:text-black  placeholder:text-lg rounded-lg border-gray-400"
+                  className="placeholder:text-black p-2 placeholder:text-lg rounded-lg "
                   placeholder={selectedName.type}
                 />
               </div>
@@ -245,7 +247,7 @@ const Modal = ({ selectedName, filePath, handleFileChange, setFilePath, clickMod
               </label>
               <input
                 type="text"
-                className="placeholder:text-black w-full h-14  placeholder:text-lg rounded-lg border-gray-400"
+                className="placeholder:text-black w-full h-14 pl-1 placeholder:text-lg rounded-lg "
                 placeholder={selectedName.quote}
               />
             </div>
